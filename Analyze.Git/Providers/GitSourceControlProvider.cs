@@ -49,6 +49,17 @@
             }
         }
 
+        public DateTime GetTimestamp(string when)
+        {
+            DateTime result = DateTime.MinValue;
+            var output = InvokeGit($"show --pretty=format:%aI -s {when}");
+            if (output.Item1 == 0)
+                if (!DateTime.TryParse(output.Item2, out result))
+                    result = DateTime.MinValue;
+
+            return result;
+        }
+
         private Tuple<int, string> InvokeGit(string args)
         {
             var sb = new StringBuilder();

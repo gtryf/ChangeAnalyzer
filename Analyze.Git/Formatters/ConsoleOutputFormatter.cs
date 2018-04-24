@@ -7,7 +7,7 @@
 
     public class ConsoleOutputFormatter : IOutputFormatter
     {
-        public void WriteHeading(string solutionPath, string commmitId)
+        public void WriteHeading(string solutionPath, string commmitId, DateTime commitDate)
         {
             
         }

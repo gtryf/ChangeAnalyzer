@@ -16,12 +16,14 @@
             this.File = System.IO.File.CreateText(fileName);
         }
 
-        public void WriteHeading(string solutionPath, string commmitId)
+        public void WriteHeading(string solutionPath, string commmitId, DateTime commitDate)
         {
             File.WriteLine("<html><head><title>Change Analysis Report</title><style>body{font-family:sans-serif;background:#F2F5F5;padding:20px;color:#5d5d5d}span.toggle-methodlist::after,span.toggle::after{content:\"(toggle)\"}span.toggle,span.toggle-methodlist{font-size:13px;font-family:sans-serif;font-style:italic;}.addition{color:#006400}.deletion{color:red}h1,h2{font-weight:400;padding:5px 10px;color:#fff;margin-bottom:0}.method-symbol,.project{font-family:monospace}h1{background:#555;font-size:24px}h2{font-size:18px;background:#744AF9}.pretxt{padding:10px;margin:0 0 30px;font-size:14px;background:#fff;border-bottom:1px solid #744AF9}.pretxt p:last-child{margin-bottom:0}ul.asset-list,ul.method-list,ul.project-list{margin-top:0;background:#fff;padding:10px 10px 10px 30px;border-bottom:1px solid #744AF9}</style></head><body><h1>Change Analysis Report</h1>");
             File.WriteLine($"<div class='pretxt'><p>Solution path: <i>{WebUtility.HtmlEncode(solutionPath)}</i></p>");
             File.WriteLine($"<p>Commit ID: <i>{WebUtility.HtmlEncode(commmitId)}</i>");
-            File.WriteLine($"<p>Date created: <i>{DateTime.Now}</i></p></p>");
+            if (commitDate > DateTime.MinValue)
+                File.WriteLine($"<p>Commit date: <i>{commitDate}</i>");
+            File.WriteLine($"<p>Report created at: <i>{DateTime.Now}</i></p></p>");
         }
 
         public void WriteChangedAssets(string assetType, IEnumerable<Change> assets)

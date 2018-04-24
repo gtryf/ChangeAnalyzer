@@ -54,7 +54,7 @@
                     var analyzer = new Analyzer<string>(provider, solutionPath, opts.CommitId);
                     analyzer.OpenSolution();
 
-                    formatter.WriteHeading(opts.SolutionPath, opts.CommitId);
+                    formatter.WriteHeading(opts.SolutionPath, opts.CommitId, provider.GetTimestamp(opts.CommitId));
 
                     var changedStyles = analyzer.GetChangedStyles();
                     formatter.WriteChangedAssets("stylesheets", changedStyles);
