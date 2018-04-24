@@ -44,6 +44,10 @@
                         return;
                     }
 
+                    Console.WriteLine(CommandLine.Text.HeadingInfo.Default);
+                    Console.WriteLine(CommandLine.Text.CopyrightInfo.Default);
+                    Console.WriteLine();
+
                     IOutputFormatter formatter = new ConsoleOutputFormatter();
                     if (!string.IsNullOrEmpty(opts.OutputPath))
                         formatter = new PrettyOutputFormatter(opts.OutputPath);
