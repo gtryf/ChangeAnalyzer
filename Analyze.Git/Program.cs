@@ -54,7 +54,7 @@
 
                     Console.WriteLine("Analyzing changes...");
                     DateTime now = DateTime.Now;
-                    var provider = new GitSourceControlProvider("git", opts.WorkingDirectory);
+                    var provider = new GitSourceControlProvider(opts.WorkingDirectory);
                     var analyzer = new Analyzer<string>(provider, solutionPath, opts.CommitId);
                     analyzer.OpenSolution();
 
