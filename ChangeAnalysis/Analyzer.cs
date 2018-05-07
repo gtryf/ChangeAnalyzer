@@ -103,7 +103,7 @@
 
                                 foreach (var currMethod in currMethods)
                                 {
-                                    var prevMethod = prevMethods.FirstOrDefault(i => i.IsEquivalentTo(currMethod));
+                                    var prevMethod = prevMethods.FirstOrDefault(i => i.IsEquivalentTo(currMethod, false));
                                     if (prevMethod == null)
                                     {
                                         var symbol = model.GetDeclaredSymbol(currMethod);
