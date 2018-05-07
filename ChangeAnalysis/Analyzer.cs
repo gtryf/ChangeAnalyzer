@@ -125,8 +125,26 @@
             var result = new Dictionary<string, IList<string>>();
             foreach (var method in GetChangedMethods())
             {
+                if (method.Locations.Any() && method.Locations[0].IsInSource)
+                {
+                    // Add project where method was defined
+                    var project = this.Solution.Projects.SelectMany(i => i.Documents)
+                        .FirstOrDefault(i => i.FilePath == method.Locations[0].SourceTree.FilePath)?.Project.Name;
+                    if (!string.IsNullOrEmpty(project))
+                    {
+                        if (!result.ContainsKey(project))
+                        {
+                            result.Add(project, new List<string> { method.ToDisplayString() });
+                        }
+                        else
+                        {
+                            if (!result[project].Contains(method.ToDisplayString()))
+                                result[project].Add(method.ToDisplayString());
+                        }
+                    }
+                }
                 var references = SymbolFinder.FindReferencesAsync(method, this.Solution).Result;
-                foreach (var reference in references)
+                foreach (var reference in references.Where(r => r.Locations.Any()))
                 {
                     var projects = reference.Locations.Select(i => i.Document.Project.Name);
                     foreach (var project in projects)
